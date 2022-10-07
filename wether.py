@@ -12,7 +12,7 @@ class Wether:
         except:
             self.code = r.status_code
             raise ReferenceError
-        # Переделать
+
         self.code = r.ok
         r_text = r.text
         print(r_text)
