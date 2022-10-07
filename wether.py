@@ -4,7 +4,8 @@ from datetime import datetime, timezone
 
 class Wether:
     def __init__(self, lat, lon):
-        id = 'e34f62f34cbc6a94e22b14dcffacda18'
+        with open('WetherAPIKey.txt', 'r', encoding='utf-8') as key:
+            id = key.readline()
         request_line = f'http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={id}&units=metric'
         try:
             r = requests.get(request_line)
@@ -14,7 +15,7 @@ class Wether:
 
         self.code = r.ok
         r_text = r.text
-        # print(r_text)
+        print(r_text)
         temp = r_text[r_text.find('temp') + 6:]
         self.temp = round(float(temp[:temp.find(',')]))
 
