@@ -1,18 +1,19 @@
 import sys
 from flask import Flask, render_template, request
-import requests
+# import requests
 from geocode import Geocode
-import datetime
+# import datetime
 from wether import Wether
+from config import Config
 
 app = Flask(__name__)
+app.config.from_object(Config)
 
 dict_with_weather_info = [{'name': 'BOSTON', 'data': ("card night", 9, 'Chilly')},
                           {'name': 'NEW YORK', 'data': ("card day", 32, 'Sunny')},
                           {'name': 'EDMONTON', 'data': ("card evening-morning", -15, 'Cold')}]
 
 gc = Geocode()
-
 
 @app.route('/', methods=['GET', 'POST'])
 def index():  # put application's code here
@@ -29,9 +30,9 @@ def add_city():
         # get coordinates
         coord = gc.find(city_name)
         if coord is not None:
-            # print(f'***coordinates = {coord}')
+            print(f'***APIKey = {Config.wether_key}')
             try:
-                cw = Wether(coord[1], coord[2])
+                cw = Wether(coord[1], coord[2], Config.wether_key)
             except ReferenceError:
                 print(f'RaiseError {cw.code}')
             else:
