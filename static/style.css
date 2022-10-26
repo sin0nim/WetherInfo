@@ -38,6 +38,11 @@ html, body {
 	margin-bottom: 3%;
 }
 
+.error {
+	border: none;
+	color: red;
+}
+
 input {
 	border: none;
 	outline: none;
